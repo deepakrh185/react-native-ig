@@ -1,8 +1,11 @@
 import React from "react";
-import { View, Text, SafeAreaView, StyleSheet } from "react-native";
+import { View, Text, SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import GlobalStyles from "../GlobalStyles";
 import Header from "../components/Header";
 import Stories from "../components/Stories";
+import Post from "../components/Post";
+import { POSTS } from "../data/Post";
+import BottomTabs, { bottomTabIcons } from "../components/BottomTabs";
 
 function HomeScreen() {
   return (
@@ -10,7 +13,13 @@ function HomeScreen() {
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
         <Header />
         <Stories />
+        <ScrollView>
+          {POSTS.map((post, index) => (
+            <Post post={post} index={index} />
+          ))}
+        </ScrollView>
       </SafeAreaView>
+      <BottomTabs icons={bottomTabIcons} />
     </SafeAreaView>
   );
 }
