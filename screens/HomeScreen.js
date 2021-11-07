@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, SafeAreaView, StyleSheet, ScrollView } from "react-native";
+import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import GlobalStyles from "../GlobalStyles";
 import Header from "../components/Header";
 import Stories from "../components/Stories";
@@ -23,7 +23,7 @@ function HomeScreen() {
     </SafeAreaView>
   );
 }
-
+                                                
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "black",

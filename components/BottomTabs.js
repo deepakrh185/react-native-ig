@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Image, StyleSheet } from "react-native";
 
 export const bottomTabIcons = [
   {
@@ -18,7 +18,7 @@ export const bottomTabIcons = [
     active: "https://img.icons8.com/ios-filled/50/ffffff/instagram-reel.png",
     inactive: "https://img.icons8.com/ios/500/ffffff/instagram-reel.png",
   },
-  {
+  { 
     name: "Shop",
     active:
       "https://img.icons8.com/fluency-systems-filled/48/ffffff/shopping-bag-full.png",
@@ -34,9 +34,9 @@ export const bottomTabIcons = [
   },
 ];
 
+
 const BottomTabs = ({ icons }) => {
   const [activeTab, setActiveTab] = useState("Home");
-
   const Icon = ({ icon }) => (
     <TouchableOpacity onPress={() => setActiveTab(icon.name)}>
       <Image
@@ -48,7 +48,7 @@ const BottomTabs = ({ icons }) => {
           icon.name === "Profile" ? styles.profilePic() : null,
           activeTab === "Profile" && icon.name === activeTab
             ? styles.profilePic(activeTab)
-            : null,
+            : null,   
         ]}
       />
     </TouchableOpacity>
@@ -63,6 +63,7 @@ const BottomTabs = ({ icons }) => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   wrapper: {
     // position: "absolute",
@@ -87,4 +88,4 @@ const styles = StyleSheet.create({
     borderWidth: activeTab === "Profile" ? 2 : 0,
   }),
 });
-export default BottomTabs;
+export default BottomTabs;    

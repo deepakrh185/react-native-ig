@@ -20,6 +20,7 @@ const Stories = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   story: {
     width: 70,

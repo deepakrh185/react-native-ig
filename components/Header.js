@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
+
 const Header = () => {
   return (
     <View style={styles.container}>
@@ -10,7 +11,6 @@ const Header = () => {
           style={styles.logo}
         />
       </TouchableOpacity>
-
       <View style={styles.iconsContainer}>
         <TouchableOpacity>
           <Image
@@ -31,7 +31,7 @@ const Header = () => {
         <TouchableOpacity>
           <View style={styles.unreadBadge}>
             <Text style={styles.unreadBadgeText}>11</Text>
-          </View>
+          </View>     
           <Image
             source={{
               uri: "https://img.icons8.com/fluency-systems-regular/60/ffffff/facebook-messenger.png",

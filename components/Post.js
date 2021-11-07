@@ -43,6 +43,7 @@ const Post = ({ post }) => {
 };
 
 const PostHeader = ({ post }) => (
+
   <View
     style={{
       flexDirection: "row",
@@ -120,6 +121,7 @@ const CommentSession = ({ post }) => (
     )}
   </View>
 );
+
 const Comments = ({ post }) => (
   <>
     {post.comments.map((comment, index) => (
@@ -134,6 +136,7 @@ const Comments = ({ post }) => (
     ))}
   </>
 );
+
 const styles = StyleSheet.create({
   story: {
     width: 35,
