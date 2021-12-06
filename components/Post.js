@@ -25,6 +25,7 @@ const postFooterIcons = [
       "https://img.icons8.com/material-outlined/60/ffffff/bookmark-ribbon--v2.png",
   },
 ];
+
 const Post = ({ post }) => {
   return (
     <View style={{ marginBottom: 30 }}>
@@ -43,7 +44,6 @@ const Post = ({ post }) => {
 };
 
 const PostHeader = ({ post }) => (
-
   <View
     style={{
       flexDirection: "row",

@@ -3,11 +3,11 @@ import { SafeAreaView, Text, StyleSheet } from "react-native";
 import AddNewPost from "../components/NewPost/AddNewPost";
 import GlobalStyles from "../GlobalStyles";
 
-const NewPostScreen = () => {
+const NewPostScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
-        <AddNewPost />
+        <AddNewPost navigation={navigation} />
       </SafeAreaView>
     </SafeAreaView>
   );
@@ -19,4 +19,5 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
 export default NewPostScreen;

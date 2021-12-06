@@ -34,7 +34,7 @@ export const POSTS = [
     comments: [
       {
         user: "robert",
-        comment: "wow wht the fucking post!!!!1",
+        comment: "wow wht the fucking post!!!!",
       },
       {
         user: "shawn",

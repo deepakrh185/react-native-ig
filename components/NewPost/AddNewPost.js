@@ -2,16 +2,16 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import FormikPost from "./FormikPost";
 
-
-const AddNewPost = () => (
+const AddNewPost = ({ navigation }) => (
   <View style={styles.container}>
-    <Header />
+    <Header navigation={navigation} />
     <FormikPost />
   </View>
 );
-const Header = () => (
+
+const Header = ({ navigation }) => (
   <View style={styles.headerContainer}>
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.goBack()}>
       <Image
         source={{
           uri: "https://img.icons8.com/ios-glyphs/90/ffffff/back.png",
@@ -23,6 +23,7 @@ const Header = () => (
     <Text></Text>
   </View>
 );
+
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 10,
@@ -39,4 +40,5 @@ const styles = StyleSheet.create({
     marginRight: 27.5,
   },
 });
+
 export default AddNewPost;

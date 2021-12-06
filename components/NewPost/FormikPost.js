@@ -45,7 +45,7 @@ const FormikPost = () => {
                 placeholder="Write a caption..."
                 placeholderTextColor="gray"
                 multiline={true}
-                style={{ color: "white", fontSize: 20 }}
+                style={{ color: "white", fontSize: 18 }}
                 onChangeText={handleChange("Caption")}
                 onBlur={handleBlur("Caption")}
                 value={values.Caption}

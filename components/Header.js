@@ -1,8 +1,7 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
-
-const Header = () => {
+const Header = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity>
@@ -12,7 +11,7 @@ const Header = () => {
         />
       </TouchableOpacity>
       <View style={styles.iconsContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.push("NewPostScreen")}>
           <Image
             source={{
               uri: "https://img.icons8.com/fluency-systems-regular/60/ffffff/plus-2-math.png",
@@ -31,7 +30,7 @@ const Header = () => {
         <TouchableOpacity>
           <View style={styles.unreadBadge}>
             <Text style={styles.unreadBadgeText}>11</Text>
-          </View>     
+          </View>
           <Image
             source={{
               uri: "https://img.icons8.com/fluency-systems-regular/60/ffffff/facebook-messenger.png",
@@ -43,6 +42,7 @@ const Header = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     justifyContent: "space-between",

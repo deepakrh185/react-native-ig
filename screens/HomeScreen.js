@@ -7,15 +7,15 @@ import Post from "../components/Post";
 import { POSTS } from "../data/Post";
 import BottomTabs, { bottomTabIcons } from "../components/BottomTabs";
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
-        <Header />
+        <Header navigation={navigation} />
         <Stories />
         <ScrollView>
           {POSTS.map((post, index) => (
-            <Post post={post} index={index} />
+            <Post post={post} index={index} key={index} />
           ))}
         </ScrollView>
       </SafeAreaView>
@@ -23,7 +23,7 @@ function HomeScreen() {
     </SafeAreaView>
   );
 }
-                                                
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "black",
