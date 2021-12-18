@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, ScrollView, Image, StyleSheet } from "react-native";
 import { USERS } from "../data/users";
 
-
 const Stories = () => {
   return (
     <View style={{ marginBottom: 13 }}>
@@ -21,6 +20,7 @@ const Stories = () => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   story: {

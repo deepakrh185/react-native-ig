@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, Button } from "react-native";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import { TextInput } from "react-native";
+import validUrl from "valid-url";
 
 const PLACEHOLDER_IMG =
   "https://www.brownweinraub.com/wp-content/uploads/2017/09/placeholder.jpg";
@@ -11,12 +12,16 @@ const uploadPostSchema = Yup.object().shape({
   imageUrl: Yup.string().url().required("A URL is required"),
   Caption: Yup.string().max(2200, "Caption has reached the character limit"),
 });
-const FormikPost = () => {
+
+const FormikPost = ({ navigation }) => {
   const [thumbnailUrl, setThumbnailUrl] = useState(PLACEHOLDER_IMG);
   return (
     <Formik
       initialValues={{ Caption: " ", imageUrl: " " }}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={(values) => {
+        console.log(values);
+        navigation.goBack();
+      }}
       validationSchema={uploadPostSchema}
       validateOnMount={true}
     >
@@ -37,7 +42,11 @@ const FormikPost = () => {
             }}
           >
             <Image
-              source={{ uri: thumbnailUrl ? thumbnailUrl : PLACEHOLDER_IMG }}
+              source={{
+                uri: validUrl.isUri(thumbnailUrl)
+                  ? thumbnailUrl
+                  : PLACEHOLDER_IMG,
+              }}
               style={{ width: 100, height: 100 }}
             />
             <View style={{ flex: 1, marginLeft: 12 }}>

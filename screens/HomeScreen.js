@@ -7,6 +7,7 @@ import Post from "../components/Post";
 import { POSTS } from "../data/Post";
 import BottomTabs, { bottomTabIcons } from "../components/BottomTabs";
 
+
 function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>

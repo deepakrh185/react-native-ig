@@ -20,7 +20,7 @@ const Header = ({ navigation }) => {
           />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Image
+          <Image  
             source={{
               uri: "https://img.icons8.com/fluency-systems-regular/60/ffffff/like--v1.png",
             }}
