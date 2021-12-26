@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { firebase } from "../firebase";
 
 const Header = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => firebase.auth().signOut()}>
         <Image
           source={require("../assests/header-logo.png")}
           style={styles.logo}
@@ -20,7 +21,7 @@ const Header = ({ navigation }) => {
           />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Image  
+          <Image
             source={{
               uri: "https://img.icons8.com/fluency-systems-regular/60/ffffff/like--v1.png",
             }}

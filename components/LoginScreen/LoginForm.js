@@ -11,7 +11,7 @@ import {
 import * as Yup from "yup";
 import { Formik } from "formik";
 import * as Validator from "email-validator";
-import firebase from "../../firebase";
+import { firebase, db } from "../../firebase";
 
 const LoginForm = ({ navigation }) => {
   const loginFormSchema = Yup.object().shape({
@@ -37,7 +37,7 @@ const LoginForm = ({ navigation }) => {
           {
             text: "Sign Up",
             onPress: () => navigation.push("SignupScreen"),
-          },  
+          },
         ]
       );
     }
