@@ -7,12 +7,14 @@ import {
   Text,
   Pressable,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import * as Validator from "email-validator";
+import firebase from "../../firebase";
 
-const SignupForm = () => {
+const SignupForm = ({ navigation }) => {
   const loginFormSchema = Yup.object().shape({
     email: Yup.string().email().required("An email is required"),
     username: Yup.string().required().min(2, "A username is required"),
@@ -20,13 +22,18 @@ const SignupForm = () => {
       .required()
       .min(6, "Your password has to have at least 8 characters"),
   });
+  const onSignup = async (email, password) => {
+    try {
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
+    } catch (err) {
+      console.log("🔥 My Lord", err.message);
+    }
+  };
   return (
     <View style={styles.container}>
       <Formik
         initialValues={{ email: "", username: "", password: "" }}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        onSubmit={(values) => onSignup(values.email, values.password)}
         validationSchema={loginFormSchema}
         validateOnMount={true}
       >
@@ -108,13 +115,13 @@ const SignupForm = () => {
               style={styles.button(isValid)}
               onPress={handleSubmit}
             >
-              <Text style={styles.buttonText}>Log In</Text>
+              <Text style={styles.buttonText}>Sign Up</Text>
             </Pressable>
             {/* <Button title="Login" /> */}
             <View style={styles.signupContainer}>
-              <Text>Don't have an account?</Text>
-              <TouchableOpacity>
-                <Text style={{ color: "#6BB0F5" }}> Sign Up</Text>
+              <Text>Already have an account?</Text>
+              <TouchableOpacity onPress={() => navigation.push("LoginScreen")}>
+                <Text style={{ color: "#6BB0F5" }}> Log In</Text>
               </TouchableOpacity>
             </View>
           </View>
