@@ -18,7 +18,7 @@ const LoginForm = ({ navigation }) => {
     email: Yup.string().email().required("An email is required"),
     password: Yup.string()
       .required()
-      .min(6, "Your password has to have at least 8 characters"),
+      .min(6, "Your password has to have at least 6 characters"),
   });
   const onLogin = async (email, password) => {
     try {
@@ -80,7 +80,7 @@ const LoginForm = ({ navigation }) => {
                 styles.inputField,
                 {
                   borderColor:
-                    1 > values.password.length || values.password.length > 6
+                    1 > values.password.length || values.password.length >= 6
                       ? "#ccc"
                       : "red",
                 },

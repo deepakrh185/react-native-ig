@@ -24,6 +24,7 @@ const Header = ({ navigation }) => (
   </View>
 );
 
+
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 10,

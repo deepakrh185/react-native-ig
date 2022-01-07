@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Divider } from "react-native-elements/dist/divider/Divider";
+import { firebase, db } from "../firebase";
 
 const postFooterIcons = [
   {
@@ -8,7 +9,7 @@ const postFooterIcons = [
     imageUrl:
       "https://img.icons8.com/fluency-systems-regular/60/ffffff/like--v1.png",
     likedImageUrl:
-      "https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/64/000000/external-heart-miscellaneous-kiranshastry-lineal-color-kiranshastry.png",
+      "https://img.icons8.com/fluency-systems-regular/60/ff0000/like--v1.png",
   },
   {
     name: "Comment",
@@ -27,22 +28,61 @@ const postFooterIcons = [
 ];
 
 const Post = ({ post }) => {
+  const [comment, setComment] = useState([]);
+
+  useEffect(() => {
+    db.collection("users")
+      .doc(post.owner_email)
+      .collection("posts")
+      .doc(post.id)
+      .collection("comments")
+      .onSnapshot((snapshot) => {
+        setComment(snapshot.docs.map((doc) => doc.data()));
+      });
+  });
+  console.log(comment);
+
+  {
+    comment.map((comment) => console.log(comment));
+  }
+  const handleLike = async (post) => {
+    const currentLikeStatus = !post.likes_by_users.includes(
+      firebase.auth().currentUser.email
+    );
+    db.collection("users")
+      .doc(post.owner_email)
+      .collection("posts")
+      .doc(post.id)
+      .update({
+        likes_by_users: currentLikeStatus
+          ? firebase.firestore.FieldValue.arrayUnion(
+              firebase.auth().currentUser.email
+            )
+          : firebase.firestore.FieldValue.arrayRemove(
+              firebase.auth().currentUser.email
+            ),
+      })
+      .then(() => {
+        console.log("Document successfully updated");
+      })
+      .error((error) => {
+        console.log("Error updating Document", error);
+      });
+  };
+
   return (
     <View style={{ marginBottom: 30 }}>
       <Divider width={1} orientation="vertical" />
       <PostHeader post={post} />
       <PostImage post={post} />
       <View style={{ marginHorizontal: 15, marginTop: 10 }}>
-        <PostFooter />
+        <PostFooter handleLike={handleLike} post={post} />
         <Likes post={post} />
         <Caption post={post} />
-        <CommentSession post={post} />
-        <Comments post={post} />
       </View>
     </View>
   );
 };
-
 const PostHeader = ({ post }) => (
   <View
     style={{
@@ -71,10 +111,22 @@ const PostImage = ({ post }) => (
   </View>
 );
 
-const PostFooter = () => (
+const PostFooter = ({ handleLike, post }) => (
   <View style={{ flexDirection: "row" }}>
     <View style={styles.footerLeftContainer}>
-      <Icon imgStyle={styles.footerIcon} imgUrl={postFooterIcons[0].imageUrl} />
+      <TouchableOpacity onPress={() => handleLike(post)}>
+        <Image
+          style={styles.footerIcon}
+          source={{
+            uri: post?.likes_by_users?.includes(
+              firebase.auth().currentUser.email
+            )
+              ? postFooterIcons[0].likedImageUrl
+              : postFooterIcons[0].imageUrl,
+          }}
+        />
+      </TouchableOpacity>
+
       <Icon imgStyle={styles.footerIcon} imgUrl={postFooterIcons[1].imageUrl} />
       <Icon
         imgStyle={[styles.footerIcon, styles.shareIcon]}
@@ -96,7 +148,7 @@ const Icon = ({ imgStyle, imgUrl }) => (
 const Likes = ({ post }) => (
   <View style={{ flexDirection: "row", marginTop: 4 }}>
     <Text style={{ color: "white", fontWeight: "700" }}>
-      {post.likes.toLocaleString("en")} likes
+      {post.likes_by_users?.length.toLocaleString("en")} likes
     </Text>
   </View>
 );
@@ -110,33 +162,29 @@ const Caption = ({ post }) => (
   </View>
 );
 
-const CommentSession = ({ post }) => (
-  <View style={{ marginTop: 5 }}>
-    {!!post.comments.length && (
-      <Text style={{ color: "gray" }}>
-        View{post.comments.length > 1 ? " all " : " "}
-        {post.comments.length}{" "}
-        {post.comments.length > 1 ? "comments" : "comment"}
-      </Text>
-    )}
-  </View>
-);
+// const CommentSession = ({ post }) => (
+//   <View style={{ marginTop: 5 }}>
+//     {!!post.comments.length && (
+//       <Text style={{ color: "gray" }}>
+//         View{post.comments.length > 1 ? " all " : " "}
+//         {post.comments.length}{" "}
+//         {post.comments.length > 1 ? "comments" : "comment"}
+//       </Text>
+//     )}
+//   </View>
+// );
 
 const Comments = ({ post }) => (
-  <>
+  <View style={{ flexDirection: "row" }} >
+    <Text style={{ color: "white", fontWeight: "700" }}>{post.user}</Text>
+
     {post.comments.map((comment, index) => (
-      <View key={index} style={{ flexDirection: "row", marginTop: 5 }}>
-        <Text style={{ color: "white" }}>
-          <Text style={{ fontWeight: "700", color: "white" }}>
-            {comment.user}
-          </Text>{" "}
-          {comment.comment}
-        </Text>
+      <View key={index} style={{ flexDirection: "row" }}>
+        <Text style={{ color: "white", marginLeft: 12 }}>{comment}</Text>
       </View>
     ))}
-  </>
+  </View>
 );
-
 const styles = StyleSheet.create({
   story: {
     width: 35,

@@ -1,29 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import GlobalStyles from "../GlobalStyles";
 import Header from "../components/Header";
 import Stories from "../components/Stories";
 import Post from "../components/Post";
-import { POSTS } from "../data/Post";
 import BottomTabs, { bottomTabIcons } from "../components/BottomTabs";
+import { db } from "../firebase";
 
+const HomeScreen = ({ navigation }) => {
+  const [posts, setPosts] = useState([]);
+  console.log("hm->", posts);
 
-function HomeScreen({ navigation }) {
+  useEffect(() => {
+    db.collectionGroup("posts")
+      .orderBy("createdAt", "desc")
+      .onSnapshot((snapshot) => {
+        setPosts(
+          snapshot.docs.map((post) => ({ id: post.id, ...post.data() }))
+        );
+      });
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
         <Header navigation={navigation} />
         <Stories />
         <ScrollView>
-          {POSTS.map((post, index) => (
-            <Post post={post} index={index} key={index} />
+          {posts?.map((post, index) => (
+            <Post post={post} key={index} />
           ))}
         </ScrollView>
       </SafeAreaView>
-      <BottomTabs icons={bottomTabIcons} />
+      <BottomTabs icons={bottomTabIcons} post={posts} />
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

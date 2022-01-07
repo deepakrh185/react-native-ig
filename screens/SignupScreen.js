@@ -5,6 +5,7 @@ import SignupForm from "../components/SignupScreen/SignupForm";
 
 const INSTAGRAM_LOGO =
   "https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Instagram_colored_svg_1-512.png";
+  
 
 const SignupScreen = ({ navigation }) => {
   return (
@@ -18,6 +19,7 @@ const SignupScreen = ({ navigation }) => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

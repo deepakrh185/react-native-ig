@@ -7,12 +7,14 @@ export const POSTS = [
 
     user: USERS[0].user,
     likes: 651465,
-    caption: "you can do deepak s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+    caption:
+      "you can do deepak s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
     profile_picture: USERS[0].image,
     comments: [
       {
         user: "elon musk",
-        comment: "wow wht the fucking post!!!!pecimen book. It has survived not only five centuries, but also the leap into electronic typesetand m",
+        comment:
+          "wow wht the fucking post!!!!pecimen book. It has survived not only five centuries, but also the leap into electronic typesetand m",
       },
       {
         user: "jeffry",

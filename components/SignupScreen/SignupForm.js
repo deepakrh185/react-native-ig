@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   TextInput,
-  Button,
   StyleSheet,
   Text,
   Pressable,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 import * as Yup from "yup";
 import { Formik } from "formik";
@@ -20,24 +18,28 @@ const SignupForm = ({ navigation }) => {
     username: Yup.string().required().min(2, "A username is required"),
     password: Yup.string()
       .required()
-      .min(6, "Your password has to have at least 8 characters"),
+      .min(6, "Your password has to have at least 6 characters"),
   });
+
   const getRandomProfilePicture = async () => {
     const response = await fetch("https://randomuser.me/api");
     const data = await response.json();
     return data.results[0].picture.large;
   };
+
   const onSignup = async (email, password, username) => {
     try {
       const authUser = await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password);
-      db.collection("users").add({
-        owner_uid: authUser.user.uid,
-        username: username,
-        email: authUser.user.email,
-        profile_picture: await getRandomProfilePicture(),
-      });
+      db.collection("users")
+        .doc(authUser.user.email)
+        .set({
+          owner_uid: authUser.user.uid,
+          username: username,
+          email: authUser.user.email,
+          profile_picture: await getRandomProfilePicture(),
+        });
     } catch (err) {
       console.log("🔥 My Lord", err.message);
     }
@@ -145,6 +147,7 @@ const SignupForm = ({ navigation }) => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     margin: 15,
