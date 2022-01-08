@@ -28,23 +28,23 @@ const postFooterIcons = [
 ];
 
 const Post = ({ post }) => {
-  const [comment, setComment] = useState([]);
+  // const [comment, setComment] = useState([]);
 
-  useEffect(() => {
-    db.collection("users")
-      .doc(post.owner_email)
-      .collection("posts")
-      .doc(post.id)
-      .collection("comments")
-      .onSnapshot((snapshot) => {
-        setComment(snapshot.docs.map((doc) => doc.data()));
-      });
-  });
-  console.log(comment);
+  // useEffect(() => {
+  //   db.collection("users")
+  //     .doc(post.owner_email)
+  //     .collection("posts")
+  //     .doc(post.id)
+  //     .collection("comments")
+  //     .onSnapshot((snapshot) => {
+  //       setComment(snapshot.docs.map((doc) => doc.data()));
+  //     });
+  // });
+  // console.log(comment);
 
-  {
-    comment.map((comment) => console.log(comment));
-  }
+  // {
+  //   comment.map((comment) => console.log(comment));
+  // }
   const handleLike = async (post) => {
     const currentLikeStatus = !post.likes_by_users.includes(
       firebase.auth().currentUser.email

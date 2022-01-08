@@ -9,7 +9,6 @@ import { db } from "../firebase";
 
 const HomeScreen = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
-  console.log("hm->", posts);
 
   useEffect(() => {
     db.collectionGroup("posts")

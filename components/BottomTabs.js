@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { firebase, db } from "../firebase";
 
 export const bottomTabIcons = [
   {
@@ -25,17 +26,32 @@ export const bottomTabIcons = [
     inactive:
       "https://img.icons8.com/fluency-systems-regular/48/ffffff/shopping-bag-full.png",
   },
-  {
-    name: "Profile",
-    inactive:
-      "https://yt3.ggpht.com/ytc/AKedOLRY9Un_v7Xr9dG1F5NEkqGsGSqwqRz0O3w3r1mI=s900-c-k-c0x00ffffff-no-rj",
-  },
+  // {
+  //   name: "Profile",
+
+  //   inactive:
+  //     "https://yt3.ggpht.com/ytc/AKedOLRY9Un_v7Xr9dG1F5NEkqGsGSqwqRz0O3w3r1mI=s900-c-k-c0x00ffffff-no-rj",
+  // },
 ];
 
 const BottomTabs = ({ icons, post }) => {
-  console.log("icons---->", post.profile_picture);
   const [activeTab, setActiveTab] = useState("Home");
+  const [userProfile, setUserProfile] = useState("");
 
+  useEffect(() => {
+    const user = firebase.auth().currentUser;
+    const unsubscribe = db
+      .collection("users")
+      .where("owner_uid", "==", user.uid)
+      .limit(1)
+      .onSnapshot((snapshot) =>
+        snapshot.docs.map((doc) => {
+          setUserProfile(doc.data().profile_picture);
+        })
+      );
+    return unsubscribe;
+  }, []);
+  console.log("->>", userProfile);
   const Icon = ({ icon, post }) => (
     <TouchableOpacity onPress={() => setActiveTab(icon.name)}>
       <Image
@@ -58,6 +74,7 @@ const BottomTabs = ({ icons, post }) => {
         {icons.map((icon, index) => (
           <Icon key={index} icon={icon} />
         ))}
+        <Image source={{ uri: userProfile }} style={styles.icon} />
       </View>
     </View>
   );
@@ -80,6 +97,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 30,
     height: 30,
+    borderRadius: 50,
   },
   profilePic: (activeTab = " ") => ({
     borderRadius: 50,

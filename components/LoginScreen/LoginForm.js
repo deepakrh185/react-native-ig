@@ -20,10 +20,12 @@ const LoginForm = ({ navigation }) => {
       .required()
       .min(6, "Your password has to have at least 6 characters"),
   });
-  const onLogin = async (email, password) => {
+  const onLogin = async (email, password, username) => {
     try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      console.log("firebase logged in", email, password);
+      await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password, username);
+      console.log("firebase logged in", email, password, username);
     } catch (error) {
       Alert.alert(
         " 🔥 My Lord..",

@@ -30,7 +30,7 @@ const SignupForm = ({ navigation }) => {
   const onSignup = async (email, password, username) => {
     try {
       const authUser = await firebase
-        .auth()
+        .auth()  
         .createUserWithEmailAndPassword(email, password);
       db.collection("users")
         .doc(authUser.user.email)
