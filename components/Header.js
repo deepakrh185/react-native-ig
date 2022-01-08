@@ -5,7 +5,7 @@ import { firebase } from "../firebase";
 const Header = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => firebase.auth().signOut()}>
+      <TouchableOpacity>
         <Image
           source={require("../assests/header-logo.png")}
           style={styles.logo}
@@ -20,10 +20,10 @@ const Header = ({ navigation }) => {
             style={styles.icon}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => firebase.auth().signOut()}>
           <Image
             source={{
-              uri: "https://img.icons8.com/fluency-systems-regular/60/ffffff/like--v1.png",
+              uri: "https://img.icons8.com/ios-glyphs/60/ffffff/logout-rounded-up--v1.png",
             }}
             style={styles.icon}
           />
