@@ -26,15 +26,9 @@ export const bottomTabIcons = [
     inactive:
       "https://img.icons8.com/fluency-systems-regular/48/ffffff/shopping-bag-full.png",
   },
-  // {
-  //   name: "Profile",
-
-  //   inactive:
-  //     "https://yt3.ggpht.com/ytc/AKedOLRY9Un_v7Xr9dG1F5NEkqGsGSqwqRz0O3w3r1mI=s900-c-k-c0x00ffffff-no-rj",
-  // },
 ];
 
-const BottomTabs = ({ icons, post }) => {
+const BottomTabs = ({ icons }) => {
   const [activeTab, setActiveTab] = useState("Home");
   const [userProfile, setUserProfile] = useState("");
 
@@ -51,8 +45,8 @@ const BottomTabs = ({ icons, post }) => {
       );
     return unsubscribe;
   }, []);
-  console.log("->>", userProfile);
-  const Icon = ({ icon, post }) => (
+
+  const Icon = ({ icon }) => (
     <TouchableOpacity onPress={() => setActiveTab(icon.name)}>
       <Image
         source={{
@@ -60,8 +54,7 @@ const BottomTabs = ({ icons, post }) => {
         }}
         style={[
           styles.icon,
-          icon.name === "Profile" ? styles.profilePic() : null,
-          activeTab === "Profile" && icon.name === activeTab
+          activeTab === "" && icon.name === activeTab
             ? styles.profilePic(activeTab)
             : null,
         ]}
